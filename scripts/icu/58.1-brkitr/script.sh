@@ -15,7 +15,7 @@ MASON_CROSS_BUILD=0
 function mason_load_source {
     mason_download \
         https://download.icu-project.org/files/icu4c/58.1/icu4c-58_1-src.tgz \
-        ad6995ba349ed79dde0f25d125a9b0bb56979420
+        9391d8a4656d137dbb30d8a13db83c37126803db
 
     mason_extract_tar_gz
 

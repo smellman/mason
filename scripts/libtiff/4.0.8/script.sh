@@ -21,9 +21,9 @@ function mason_prepare_compile {
     JPEG_VERSION=1.5.2
     ${MASON_DIR}/mason install jpeg_turbo ${JPEG_VERSION}
     MASON_JPEG=$(${MASON_DIR}/mason prefix jpeg_turbo ${JPEG_VERSION})
-    # depends on sudo apt-get install zlib1g-dev
-    ${MASON_DIR}/mason install zlib system
-    MASON_ZLIB=$(${MASON_DIR}/mason prefix zlib system)
+    ZLIB_VERSION=1.2.13
+    ${MASON_DIR}/mason install zlib ${ZLIB_VERSION}
+    MASON_ZLIB=$(${MASON_DIR}/mason prefix zlib ${ZLIB_VERSION})
 }
 
 

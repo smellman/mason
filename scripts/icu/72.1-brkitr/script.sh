@@ -3,6 +3,7 @@
 # Build ICU common package (libicuuc.a) with data file separate and with support for legacy conversion and break iteration turned off in order to minimize size
 
 MASON_NAME=icu
+MASON_UNPKG_NAME=icu-release-72-1/icu4c
 MASON_VERSION=58.1-brkitr
 MASON_LIB_FILE=lib/libicuuc.a
 #MASON_PKGCONFIG_FILE=lib/pkgconfig/icu-uc.pc
@@ -14,12 +15,12 @@ MASON_CROSS_BUILD=0
 
 function mason_load_source {
     mason_download \
-        https://download.icu-project.org/files/icu4c/58.1/icu4c-58_1-src.tgz \
-        ad6995ba349ed79dde0f25d125a9b0bb56979420
+        https://github.com/unicode-org/icu/archive/refs/tags/release-72-1.tar.gz \
+        c45d9c387b4de518fb0a47e9e067f4dd9d4dbfde
 
     mason_extract_tar_gz
 
-    export MASON_BUILD_PATH=${MASON_ROOT}/.build/${MASON_NAME}
+    export MASON_BUILD_PATH=${MASON_ROOT}/.build/${MASON_UNPKG_NAME}
 }
 
 function mason_prepare_compile {

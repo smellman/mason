@@ -3,7 +3,8 @@
 # Build ICU common package (libicuuc.a) with data file separate and with support for legacy conversion and break iteration turned off in order to minimize size
 
 MASON_NAME=icu
-MASON_VERSION=58.1-brkitr
+MASON_UNPKG_NAME=icu-release-72-1/icu4c
+MASON_VERSION=58.1
 MASON_LIB_FILE=lib/libicuuc.a
 #MASON_PKGCONFIG_FILE=lib/pkgconfig/icu-uc.pc
 
@@ -14,12 +15,12 @@ MASON_CROSS_BUILD=0
 
 function mason_load_source {
     mason_download \
-        https://download.icu-project.org/files/icu4c/58.1/icu4c-58_1-src.tgz \
-        ad6995ba349ed79dde0f25d125a9b0bb56979420
+        https://github.com/unicode-org/icu/archive/refs/tags/release-72-1.tar.gz \
+        c45d9c387b4de518fb0a47e9e067f4dd9d4dbfde
 
     mason_extract_tar_gz
 
-    export MASON_BUILD_PATH=${MASON_ROOT}/.build/${MASON_NAME}
+    export MASON_BUILD_PATH=${MASON_ROOT}/.build/${MASON_UNPKG_NAME}
 }
 
 function mason_prepare_compile {
@@ -52,10 +53,11 @@ function mason_compile_base {
     # Using uint_least16_t instead of char16_t because Android Clang doesn't recognize char16_t
     # I'm being shady and telling users of the library to use char16_t, so there's an implicit raw cast
     ICU_CORE_CPP_FLAGS="-DU_CHARSET_IS_UTF8=1 -DU_CHAR_TYPE=uint_least16_t"
-    ICU_MODULE_CPP_FLAGS="${ICU_CORE_CPP_FLAGS} -DUCONFIG_NO_LEGACY_CONVERSION=1" # -DUCONFIG_NO_BREAK_ITERATION=1"
-
+    ICU_MODULE_CPP_FLAGS="${ICU_CORE_CPP_FLAGS} -DUCONFIG_NO_LEGACY_CONVERSION=1 -DUCONFIG_NO_BREAK_ITERATION=1"
+    
     CPPFLAGS="${CPPFLAGS:-} ${ICU_CORE_CPP_FLAGS} ${ICU_MODULE_CPP_FLAGS} -fvisibility=hidden $(icu_debug_cpp)"
     #CXXFLAGS="--std=c++0x"
+
     echo "Configuring with ${MASON_HOST_ARG}"
 
     ./configure ${MASON_HOST_ARG} --prefix=${MASON_PREFIX} \

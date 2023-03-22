@@ -38,7 +38,8 @@ case ${MASON_ROOT} in
 esac
 
 if [ "${MASON_PLATFORM}" = 'osx' ]; then
-    export MASON_HOST_ARG="--host=x86_64-apple-darwin"
+    export MASON_HOST_ARCH=$(uname -m)
+    export MASON_HOST_ARG="--host=${MASON_HOST_ARCH}-apple-darwin"
     export MASON_PLATFORM_VERSION=$(uname -m)
 
     if [[ ${MASON_IGNORE_OSX_SDK} == false ]]; then
@@ -61,7 +62,7 @@ if [ "${MASON_PLATFORM}" = 'osx' ]; then
         fi
 
         MIN_SDK_VERSION_FLAG="-mmacosx-version-min=10.8"
-        SYSROOT_FLAGS="-isysroot ${MASON_SDK_PATH} -arch x86_64 ${MIN_SDK_VERSION_FLAG}"
+        SYSROOT_FLAGS="-isysroot ${MASON_SDK_PATH} -arch ${MASON_HOST_ARCH} ${MIN_SDK_VERSION_FLAG}"
         export CFLAGS="${SYSROOT_FLAGS}"
         export CXXFLAGS="${CFLAGS} -fvisibility-inlines-hidden -stdlib=libc++ -std=c++11"
         # NOTE: OSX needs '-stdlib=libc++ -std=c++11' in both CXXFLAGS and LDFLAGS

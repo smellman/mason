@@ -22,8 +22,7 @@ function mason_prepare_compile {
 }
 
 function mason_compile {
-    export CFLAGS="${CFLAGS} -O3 -DNDEBUG"
-    export CXXFLAGS="${CXXFLAGS} -O3 -DNDEBUG -std=c++11"
+    # does not work with ccache
     rm -rf build
     mkdir -p build
     cd build

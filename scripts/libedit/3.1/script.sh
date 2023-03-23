@@ -7,13 +7,17 @@ MASON_LIB_FILE=lib/libedit.a
 . ${MASON_DIR}/mason.sh
 
 function mason_load_source {
+    # mason_download fails with 406 error
     mason_download \
-        https://thrysoee.dk/editline/libedit-20170329-${MASON_VERSION}.tar.gz \
-        7e64a1cfa3f16e7fa854e0c8cc3756ce7b793919
+        https://www.dropbox.com/s/teaqxjh5rhc0759/libedit-20221030-${MASON_VERSION}.tar.gz \
+        9de8011b84997904bbd0317ba9cf2f85201f3ece
+    # mason_download \
+    #     https://www.thrysoee.dk/editline/libedit-20221030-${MASON_VERSION}.tar.gz \
+    #     9de8011b84997904bbd0317ba9cf2f85201f3ece
 
     mason_extract_tar_gz
 
-    export MASON_BUILD_PATH=${MASON_ROOT}/.build/libedit-20170329-${MASON_VERSION}
+    export MASON_BUILD_PATH=${MASON_ROOT}/.build/libedit-20221030-${MASON_VERSION}
 }
 
 function mason_compile {

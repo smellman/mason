@@ -20,9 +20,9 @@ function mason_load_source {
 function mason_prepare_compile {
     LIBEDIT_VERSION="3.1"
     NCURSES_VERSION="6.1"
-    CCACHE_VERSION=4.0
-    ${MASON_DIR}/mason install ccache ${CCACHE_VERSION}
-    MASON_CCACHE=$(${MASON_DIR}/mason prefix ccache ${CCACHE_VERSION})
+    # CCACHE_VERSION=4.0
+    # ${MASON_DIR}/mason install ccache ${CCACHE_VERSION}
+    # MASON_CCACHE=$(${MASON_DIR}/mason prefix ccache ${CCACHE_VERSION})
     ${MASON_DIR}/mason install libedit ${LIBEDIT_VERSION}
     MASON_LIBEDIT=$(${MASON_DIR}/mason prefix libedit ${LIBEDIT_VERSION})
     ${MASON_DIR}/mason install ncurses ${NCURSES_VERSION}

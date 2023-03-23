@@ -4,7 +4,7 @@
 
 MASON_NAME=icu
 MASON_UNPKG_NAME=icu-release-72-1/icu4c
-MASON_VERSION=58.1
+MASON_VERSION=72.1
 MASON_LIB_FILE=lib/libicuuc.a
 #MASON_PKGCONFIG_FILE=lib/pkgconfig/icu-uc.pc
 
@@ -49,6 +49,7 @@ function mason_compile {
 
 function mason_compile_base {
     pushd  ${MASON_BUILD_PATH}/source
+    echo "pwd: ${PWD}"
 
     # Using uint_least16_t instead of char16_t because Android Clang doesn't recognize char16_t
     # I'm being shady and telling users of the library to use char16_t, so there's an implicit raw cast
@@ -57,6 +58,10 @@ function mason_compile_base {
     
     CPPFLAGS="${CPPFLAGS:-} ${ICU_CORE_CPP_FLAGS} ${ICU_MODULE_CPP_FLAGS} -fvisibility=hidden $(icu_debug_cpp)"
     #CXXFLAGS="--std=c++0x"
+
+    if [[ ${MASON_HOST_ARG} == '--host=arm64-apple-darwin' ]]; then
+        export MASON_HOST_ARG='--host=aarch64-apple-darwin'
+    fi
 
     echo "Configuring with ${MASON_HOST_ARG}"
 

@@ -4,7 +4,7 @@
 
 MASON_NAME=icu
 MASON_UNPKG_NAME=icu-release-72-1/icu4c
-MASON_VERSION=58.1-brkitr
+MASON_VERSION=72.1-brkitr
 MASON_LIB_FILE=lib/libicuuc.a
 #MASON_PKGCONFIG_FILE=lib/pkgconfig/icu-uc.pc
 
@@ -57,6 +57,10 @@ function mason_compile_base {
 
     CPPFLAGS="${CPPFLAGS:-} ${ICU_CORE_CPP_FLAGS} ${ICU_MODULE_CPP_FLAGS} -fvisibility=hidden $(icu_debug_cpp)"
     #CXXFLAGS="--std=c++0x"
+    if [[ ${MASON_HOST_ARG} == '--host=arm64-apple-darwin' ]]; then
+        export MASON_HOST_ARG='--host=aarch64-apple-darwin'
+    fi
+
     echo "Configuring with ${MASON_HOST_ARG}"
 
     ./configure ${MASON_HOST_ARG} --prefix=${MASON_PREFIX} \

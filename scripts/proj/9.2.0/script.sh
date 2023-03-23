@@ -51,6 +51,13 @@ function mason_compile {
         -DTIFF_INCLUDE_DIR=${MASON_LIBTIFF}/include \
         -DTIFF_LIBRARY_RELEASE=${MASON_LIBTIFF}/lib/libtiff.a \
         -DBUILD_TESTING=OFF \
+        -DBUILD_CCT=OFF \
+        -DBUILD_CS2CS=OFF \
+        -DBUILD_GEOD=OFF \
+        -DBUILD_GIE=OFF \
+        -DBUILD_PROJ=OFF \
+        -DBUILD_PROJINFO=OFF \
+        -DBUILD_PROJSYNC=OFF \
         ..
     # ./configure --prefix=${MASON_PREFIX} \
     # ${MASON_HOST_ARG} \

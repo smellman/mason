@@ -30,22 +30,46 @@ function mason_prepare_compile {
 function mason_compile {
     # note CFLAGS overrides defaults (-g -O2 -Wall -W) so we need to add optimization flags back
     export CFLAGS="${CFLAGS} -O3 -DNDEBUG"
-    ./configure --prefix=${MASON_PREFIX} \
-    ${MASON_HOST_ARG} \
-    --enable-static --disable-shared \
-    --enable-largefile \
-    --enable-defer-strile-load \
-    --enable-chunky-strip-read \
-    --disable-jpeg12 \
-    --disable-dependency-tracking \
-    --disable-cxx \
-    --with-jpeg-include-dir=${MASON_JPEG}/include \
-    --with-jpeg-lib-dir=${MASON_JPEG}/lib \
-    --with-zlib-include-dir=${MASON_ZLIB}/include \
-    --with-zlib-lib-dir=${MASON_ZLIB}/lib \
-    --disable-lzma --disable-jbig --disable-mdi \
-    --without-x --disable-pixarlog --disable-next --disable-old-jpeg --disable-logluv \
-    --disable-thunder --disable-packbits --disable-ccitt
+    cmake \
+        -DCMAKE_INSTALL_PREFIX:PATH=${MASON_PREFIX} \
+        -DBUILD_SHARED_LIBS=OFF \
+        -Djpeg=ON \
+        -DJPEG_INCLUDE_DIR=${MASON_JPEG}/include \
+        -DJPEG_LIBRARY=${MASON_JPEG}/lib/libturbojpeg.a \
+        -DZLIB_INCLUDE_DIR=${MASON_ZLIB}/include \
+        -DZLIB_LIBRARY=${MASON_ZLIB}/lib/libz.a \
+        -DCXX=OFF \
+        -Dlerc=OFF \
+        -Dlzma=OFF \
+        -Djbig=OFF \
+        -Dmdi=OFF \
+        -Djpeg12=OFF \
+        -Dwebp=OFF \
+        -Dpixarlog=OFF \
+        -Dnext=OFF \
+        -Dold-jpeg=OFF \
+        -Dlogluv=OFF \
+        -Dthunder=OFF \
+        -Dpackbits=OFF \
+        -Dccitt=OFF \
+        -Dzstd=OFF \
+        .
+    # ./configure --prefix=${MASON_PREFIX} \
+    # ${MASON_HOST_ARG} \
+    # --enable-static --disable-shared \
+    # --enable-largefile \
+    # --enable-defer-strile-load \
+    # --enable-chunky-strip-read \
+    # --disable-jpeg12 \
+    # --disable-dependency-tracking \
+    # --disable-cxx \
+    # --with-jpeg-include-dir=${MASON_JPEG}/include \
+    # --with-jpeg-lib-dir=${MASON_JPEG}/lib \
+    # --with-zlib-include-dir=${MASON_ZLIB}/include \
+    # --with-zlib-lib-dir=${MASON_ZLIB}/lib \
+    # --disable-lzma --disable-jbig --disable-mdi \
+    # --without-x --disable-pixarlog --disable-next --disable-old-jpeg --disable-logluv \
+    # --disable-thunder --disable-packbits --disable-ccitt
 
     make -j${MASON_CONCURRENCY} V=1
     make install

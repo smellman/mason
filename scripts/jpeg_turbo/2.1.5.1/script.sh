@@ -3,6 +3,7 @@
 MASON_NAME=jpeg_turbo
 MASON_VERSION=2.1.5.1
 MASON_LIB_FILE=lib/libjpeg.a
+MASON_PKGCONFIG_FILE=lib/pkgconfig/libjpeg.pc
 
 . ${MASON_DIR}/mason.sh
 
